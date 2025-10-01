@@ -5,51 +5,48 @@
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
 | nickname           | string | null: false |
-| mail               | string | null: false, unique: true |
+| email              | string | null: false, unique: true |
 | encrypted_password | string | null: false |
-| firstname          | string | null: false |
-| lastname           | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
 | kana_first_name    | string | null: false |
 | kana_last_name     | string | null: false |
-| birth              | string | null: false |
+| birth              | date   | null: false |
 ### Association
 
 - has_many :items
-- has_one  :buydatas, cards
+- has_one  :buy
 
 ## items_table
 
-| Column             | Type   | Options     |
-| img                | string | null: false |
-| name               | string | null: false |
-| explanation        | text   | null: false |
-| category           | string | null: false |
-| status             | string | null: false |
-| haisou_futan       | string | null: false |
-| hassou_area        | string | null: false |
-| hassou_day         | string | null: false |
-| price              | string | null: false |
+| Column             | Type       | Options     |
+| name               | string     | null: false |
+| explanation        | text       | null: false |
+| category_id        | integer    | null: false |
+| status_id          | integer    | null: false |
+| shipping_fee_id    | integer    | null: false |
+| prefecture_id      | integer    | null: false |
+| shipping_day_id    | integer    | null: false |
+| price              | string     | null: false |
+| user               | references | null: false, foreign_key: true |
 
-- belongs_to :users
-- has_one    :buydatas
+- belongs_to :user
+- has_one    :buy
 
-## buydatas_table
+## buys_table
+| item               | references | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
+- has_one  :user, item, shipping_destination
+
+## shipping_destinations_table
 
 | Column             | Type       | Options     |
 | postnumber         | string     | null: false |
-| todofuken          | string     | null: false |
-| sikuchouson        | string     | null: false |
-| banti              | string     | null: false |
-| tatemono           | string     | null: false |
+| prefectures        | string     | null: false |
+| municipality       | string     | null: false |
+| street_address     | string     | null: false |
+| building           | string     |             |
 | tel                | string     | null: false |
-| item               | references | null: false, foreign_key: true |
-| user               | references | null: false, foreign_key: true |
 
-- has_one  :users, items
+- has_one    :buy
 
-## cards_table
-| Column             | Type       | Options     |
-| customer_token     | string     | null: false |
-| user               | references | null: false, foreign_key: true |
-
-- has_one  :users
