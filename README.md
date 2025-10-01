@@ -1,24 +1,55 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users_table
 
-Things you may want to cover:
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| nickname           | string | null: false |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
+| kana_first_name    | string | null: false |
+| kana_last_name     | string | null: false |
+| birth              | date   | null: false |
+### Association
 
-* Ruby version
+- has_many :items
+- has_many :buys
 
-* System dependencies
+## items_table
 
-* Configuration
+| Column             | Type       | Options     |
+| name               | string     | null: false |
+| explanation        | text       | null: false |
+| category_id        | integer    | null: false |
+| status_id          | integer    | null: false |
+| shipping_fee_id    | integer    | null: false |
+| prefecture_id      | integer    | null: false |
+| shipping_day_id    | integer    | null: false |
+| price              | integer    | null: false |
+| user               | references | null: false, foreign_key: true |
 
-* Database creation
+- belongs_to :user
+- has_one :buy
 
-* Database initialization
+## buys_table
+| item               | references | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
+- has_one  :shipping_destination
+- belongs_to :user
+- belongs_to :item
 
-* How to run the test suite
+## shipping_destinations_table
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column             | Type       | Options     |
+| postnumber         | string     | null: false |
+| prefecture_id      | integer    | null: false |
+| municipality       | string     | null: false |
+| street_address     | string     | null: false |
+| building           | string     |             |
+| tel                | string     | null: false |
+| buy                | references | null: false, foreign_key: true |
 
-* Deployment instructions
+- belongs_to :buy
 
-* ...
