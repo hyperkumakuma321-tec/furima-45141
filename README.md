@@ -15,7 +15,7 @@
 ### Association
 
 - has_many :items
-- has_one  :buy
+- has_many :buys
 
 ## items_table
 
@@ -27,26 +27,28 @@
 | shipping_fee_id    | integer    | null: false |
 | prefecture_id      | integer    | null: false |
 | shipping_day_id    | integer    | null: false |
-| price              | string     | null: false |
+| price              | integer    | null: false |
 | user               | references | null: false, foreign_key: true |
 
 - belongs_to :user
-- has_one    :buy
+- has_one :buy
 
 ## buys_table
 | item               | references | null: false, foreign_key: true |
 | user               | references | null: false, foreign_key: true |
-- has_one  :user, item, shipping_destination
+- has_one  :shipping_destination
+- belongs_to :user
+- belongs_to :item
 
 ## shipping_destinations_table
 
 | Column             | Type       | Options     |
 | postnumber         | string     | null: false |
-| prefectures        | string     | null: false |
+| prefecture_id      | integer    | null: false |
 | municipality       | string     | null: false |
 | street_address     | string     | null: false |
 | building           | string     |             |
 | tel                | string     | null: false |
 
-- has_one    :buy
+- belongs_to :buy
 
