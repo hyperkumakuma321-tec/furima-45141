@@ -77,3 +77,4 @@ end
 
 gem "devise"
 gem 'pry-rails'
+gem 'rubocop', '1.71.2', require: false
