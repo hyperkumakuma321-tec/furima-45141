@@ -78,3 +78,5 @@ end
 gem "devise"
 gem 'pry-rails'
 gem 'rubocop', '1.71.2', require: false
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
