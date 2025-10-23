@@ -4,11 +4,11 @@ class Item < ApplicationRecord
   has_one_attached :image
   
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category
-  belongs_to :status
-  belongs_to :shipping_fee
-  belongs_to :prefecture
-  belongs_to :shipping_day
+  belongs_to_active_hash :category
+  belongs_to_active_hash :status
+  belongs_to_active_hash :shipping_fee
+  belongs_to_active_hash :prefecture
+  belongs_to_active_hash :shipping_day
 
   #空の投稿を保存できないようにする
   validates :name, :explanation, :price, presence: true
