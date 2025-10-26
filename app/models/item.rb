@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
-  has_one :buy
+  # has_one :buy
   has_one_attached :image
   
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -20,7 +20,6 @@ class Item < ApplicationRecord
   validates :shipping_day_id, numericality: { other_than: 1 , message: "can't be blank"}
 
   validates :price, presence: true,
-                    format: { with: /\A[0-9]+\z/, message: 'は半角数字で入力してください' },
                     numericality: {
                       only_integer: true,
                       greater_than_or_equal_to: 300,

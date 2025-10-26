@@ -18,7 +18,8 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include("Name can't be blank")
         end
         it '画像がないと保存できない' do
-          @item = FactoryBot.build(:item)
+          @item.image = nil
+          @item.valid?
           expect(@item).to be_invalid
           expect(@item.errors.full_messages).to include("Image can't be blank")
         end
@@ -75,6 +76,11 @@ RSpec.describe Item, type: :model do
           @item.price = "こんにちは"
           @item.valid?
           expect(@item.errors.full_messages).to include("Price is not a number")
+        end
+        it 'userが紐づいていなければ登録できない' do
+          @item.user = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include("User must exist")
         end
       end
     end
