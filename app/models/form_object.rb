@@ -11,10 +11,9 @@ class FormObject
   validates :user_id
   validates :item_id
   validates :buy_id
-end
 
   def save
     Buys.create(item_id: @item_id, user_id: @user_id)
     ShippingDestinations.create(postnumber: postnumber, prefecture_id: prefecture_id, municipality: municipality, street_address: street_address, building: building, tel: tel, buy_id: buy_id)
-    end
+  end
 end
