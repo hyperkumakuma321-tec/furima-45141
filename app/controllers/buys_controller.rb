@@ -1,5 +1,5 @@
 class BuysController < ApplicationController
   def index
-    @buys = Buy.all
+    @buys = FormObject.all
   end
 end
