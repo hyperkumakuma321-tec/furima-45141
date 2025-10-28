@@ -1,6 +1,6 @@
 class FormObject
   include ActiveModel::Model
-  attr_accessor :postnumber, :prefecture_id, :municipality, :street_address, :building, :tel, :item_id, :user_id, :buy_id
+  attr_accessor :postnumber, :prefecture_id, :municipality, :street_address, :building, :tel, :item_id, :user_id
 
   # ここにバリデーションの処理を書く
   validates :postnumber, presence: true
@@ -13,7 +13,7 @@ class FormObject
   # validates :buy_id
 
   def save
-    Buys.create(item_id: @item_id, user_id: @user_id)
-    ShippingDestinations.create(postnumber: postnumber, prefecture_id: prefecture_id, municipality: municipality, street_address: street_address, building: building, tel: tel, buy_id: buy_id)
+    Buy.create(item_id: item_id, user_id: user_id)
+    ShippingDestination.create(postnumber: postnumber, prefecture_id: prefecture_id, municipality: municipality, street_address: street_address, building: building, tel: tel, buy_id: buy_id)
   end
 end
