@@ -13,7 +13,7 @@ class FormObject
   # validates :buy_id
 
   def save
-    Buy.create(item_id: item_id, user_id: user_id)
-    ShippingDestination.create(postnumber: postnumber, prefecture_id: prefecture_id, municipality: municipality, street_address: street_address, building: building, tel: tel, buy_id: buy_id)
+    buy = Buy.create(item_id: item_id, user_id: user_id)
+    ShippingDestination.create(postnumber: postnumber, prefecture_id: prefecture_id, municipality: municipality, street_address: street_address, building: building, tel: tel, buy_id: buy.id)
   end
 end
