@@ -53,5 +53,10 @@ RSpec.describe FormObject, type: :model do
         @form_object.valid?
         expect(@form_object.errors.full_messages).to include("Tel is invalid")
       end
+      it "tokenが空では登録できないこと" do
+      @form_object.token = nil
+      @form_object.valid?
+      expect(@form_object.errors.full_messages).to include("Token can't be blank")
+    end
   end
 end
