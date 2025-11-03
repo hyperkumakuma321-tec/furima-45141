@@ -54,5 +54,10 @@ class ItemsController < ApplicationController
     if current_user.id != @item.user_id
       redirect_to root_path
     end
+    if current_user.id = @item.user_id
+      if @item.buy.present?
+        redirect_to root_path
+      end
+    end
   end
 end
