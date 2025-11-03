@@ -1,6 +1,6 @@
 class FormObject
   include ActiveModel::Model
-  attr_accessor :postnumber, :prefecture_id, :municipality, :street_address, :building, :tel, :item_id, :user_id, :token
+  attr_accessor :postnumber, :prefecture_id, :municipality, :street_address, :building, :tel, :item_id, :user_id, :token, :price
 
   # ここにバリデーションの処理を書く
 with_options presence: true do
