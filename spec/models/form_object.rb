@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe FormObject, type: :model do
   before do
-    # user = FactoryBot.create(:user)
-    # item = FactoryBot.create(:item)
-    @form_object = FactoryBot.build(:form_object)  #, user_id: user.id, item_id: item.id)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.build_stubbed(:item)
+    allow(item).to receive(:image).and_return(ActiveStorage::Blob.new)
+    @form_object = FactoryBot.build(:form_object,user_id: user.id, item_id: item.id)
   end
 
   context '内容に問題がない場合' do
@@ -54,9 +55,32 @@ RSpec.describe FormObject, type: :model do
         expect(@form_object.errors.full_messages).to include("Tel is invalid")
       end
       it "tokenが空では登録できないこと" do
-      @form_object.token = nil
-      @form_object.valid?
-      expect(@form_object.errors.full_messages).to include("Token can't be blank")
-    end
+        @form_object.token = nil
+        @form_object.valid?
+        expect(@form_object.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では登録できない' do
+        @form_object.user_id = nil
+        @form_object.valid?
+        expect(@form_object.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空では登録できない' do
+        @form_object.item_id = nil
+        @form_object.valid?
+        expect(@form_object.errors.full_messages).to include("Item can't be blank")
+      end
+
+      it '電話番号が9桁以下では登録できない' do
+        @form_object.tel = '090123456'  # 9桁
+        @form_object.valid?
+        expect(@form_object.errors.full_messages).to include("Tel is invalid")
+      end
+
+      it '電話番号が12桁以上では登録できない' do
+        @form_object.tel = '090123456789'  # 12桁
+        @form_object.valid?
+        expect(@form_object.errors.full_messages).to include("Tel is invalid")
+      end
   end
 end

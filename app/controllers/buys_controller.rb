@@ -1,14 +1,13 @@
 class BuysController < ApplicationController
   before_action :authenticate_user!, only: [:index]
+  before_action :set_item, only: [:index, :create]
   before_action :move_to_index, only: [:index, :create]
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]   
     @buy = FormObject.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @buy = FormObject.new(buy_params)
 
     if @buy.valid?
@@ -26,6 +25,10 @@ class BuysController < ApplicationController
 
   def buy_params
     params.require(:form_object).permit(:postnumber, :prefecture_id, :municipality, :street_address, :building, :tel).merge(user_id: current_user.id, item_id: params[:item_id],token: params[:token], price: @item.price)
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 
   def move_to_index
